@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include "tree.h"
 #include "queue.h"
 
@@ -86,27 +87,45 @@ Node* find(Node* root, int data) {
 	print_tree(root->left, depth + 1);
 }*/
 
+int depth_max(Node* root, int depth) {
+	if (root == NULL) return depth;
+	int left_depth = depth_max(root->left, depth + 1);
+	int right_depth = depth_max(root->right, depth + 1);
+	return (left_depth > right_depth) ? left_depth : right_depth;
+}
+
 void print_tree(Node* root) {
 	if (root == NULL) return;
+
+	int depth = depth_max(root, 0);
+
+	//printf("%d\n", depth_max(root, 0));
 
 	Queue q;
 	init_queue(&q);
 	push_queue(&q, root);
-
+	
 	while (!empty_queue(&q)) {
 		int count = q.size;
-
+		int space1 = (int)pow(2, depth - 1 ) - 1;
+		int space2 = (int)pow(2, depth) - 1;
+		depth--;
+		for (int i = 0; i < space1; i++) {
+			printf(" ");
+		}
 		while (count) {
 			Node* node;
 			pop_queue(&q, &node);
 			count--;
 			printf("%d", node->data);
+			for (int i = 0; i < space2; i++) {
+				printf(" ");
+			}
 			if (node->left) push_queue(&q, node->left);
 			if (node->right) push_queue(&q, node->right);
 		}
 		printf("\n");
 	}
-
 }
 
 Node* clear(Node* root) {

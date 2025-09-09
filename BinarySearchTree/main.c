@@ -48,8 +48,8 @@ int main() {
 				printf("Empty\n");
 			}
 			else {
-				//print_tree(node);
-				print_tree(node, 0);
+				print_tree(node);
+				//print_tree(node, 0);
 				printf("\n");
 			}
 			break;

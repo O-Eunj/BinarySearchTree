@@ -15,8 +15,10 @@ Node* bst_delete(Node* root, int data);
 
 Node* find(Node* root, int data);
 
-//void print_tree(Node* root);
-void print_tree(Node* root, int depth);
+int depth_max(Node* root, int depth);
+
+void print_tree(Node* root);
+//void print_tree(Node* root, int depth);
 
 Node* clear(Node* root);
 
